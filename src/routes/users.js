@@ -1,16 +1,12 @@
-// npm test spec/unit/user_spec.js
-
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController")
 const validation = require("./validation");
 const User = require("../../src/db/models").User;
 
-//router.get("/users/sign_up", userController.signUp);
-
 router.get("/users/sign_up", userController.signUp);
 
-//router.post("/users", validation.validateUsers, userController.create);
+router.post("/users", validation.validateUsers, userController.create);
 
 //router.get("/users/sign_in", userController.signInForm);
 
