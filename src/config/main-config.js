@@ -6,6 +6,7 @@ const expressValidator = require("express-validator");
 const session = require("express-session");
 const flash = require("express-flash");
 const passportConfig = require("./passport-config");
+const bodyParser = require("body-parser");
 
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
     app.use(logger('dev'));
     app.set("views", viewsFolder);
     app.set("view engine", "ejs");
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(express.static(path.join(__dirname, "..", "assets")));
     app.use(expressValidator());
     app.use(session({

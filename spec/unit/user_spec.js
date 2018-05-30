@@ -18,8 +18,9 @@ describe("User", () => {
 
   describe("#create()", () => {
 
-    it("should create a User object with a valid email and password", (done) => {
+    it("should create a User object with a valid name, email and password", (done) => {
       User.create({
+        name: "Tad",
         email: "user@example.com",
         password: "1234567890"
       })
@@ -36,6 +37,7 @@ describe("User", () => {
 
     it("should not create a user with invalid email or password", (done) => {
       User.create({
+        name: "Mario",
         email: "It's-a me, Mario!",
         password: "1234567890"
       })
@@ -53,12 +55,44 @@ describe("User", () => {
 
     it("should not create a user with an email already taken", (done) => {
       User.create({
+        name: "Tad",
         email: "user@example.com",
         password: "1234567890"
       })
       .then((user) => {
         User.create({
+          name: "Steve",
           email: "user@example.com",
+          password: "nananananananananananananananana BATMAN!"
+        })
+        .then((user) => {
+          // the code in this block will not be evaluated since the validation error
+          // will skip it. Instead, we'll catch the error in the catch block below
+          // and set the expectations there
+          done();
+        })
+        .catch((err) => {
+          expect(err.message).toContain("Validation error");
+          done();
+        });
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+        done();
+      });
+    });
+
+    it("should not create a user with a name already taken", (done) => {
+      User.create({
+        name: "Tad",
+        email: "user@example.com",
+        password: "1234567890"
+      })
+      .then((user) => {
+        User.create({
+          name: "Tad",
+          email: "user2@example.com",
           password: "nananananananananananananananana BATMAN!"
         })
         .then((user) => {
