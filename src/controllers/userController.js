@@ -35,7 +35,8 @@ module.exports = {
 
   signIn(req, res, next){
     passport.authenticate("local")(req, res, function () {
-      console.log("userController "+ req.user);
+      if (!res) { return next(err); }
+      console.log("userController "+ res);
       if(!req.user){
         console.log("userController1 "+ req.user);
         req.flash("notice", "Sign in failed. Please try again.");
@@ -47,6 +48,23 @@ module.exports = {
       }
     });
   },
+
+//  signIn(req, res, next){
+//    passport.authenticate("local", (err, user, info) => {
+//      if (err) { return next(err); }
+//      if(!user){
+//        console.log("userController1 "+ info);
+//        console.log("userController2 "+ user);
+//        console.log("userController3 "+ err);
+//        req.flash("notice", "Sign in failed. Please try again.");
+//        res.redirect("/users/sign_in");
+//      } else {
+//        console.log("userController5 "+ req.user);
+//        req.flash("notice", "You've successfully signed in!");
+//        res.redirect("/");
+//      }
+//    })(req, res, next);;
+//  },
 
   signOut(req, res, next){
     req.logout();
