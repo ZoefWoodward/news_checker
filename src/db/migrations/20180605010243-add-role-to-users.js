@@ -9,7 +9,7 @@ module.exports = {
       {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: "member"
+        defaultValue: "standard"
       }
     );
   },

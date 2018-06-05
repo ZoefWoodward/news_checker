@@ -12,6 +12,7 @@ module.exports = {
       },
       name: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       email: {
@@ -36,7 +37,7 @@ module.exports = {
       }
     });
   },
-  
+
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
   }
