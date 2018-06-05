@@ -85,8 +85,8 @@ describe("routes : wikis", () => {
       };
       request.post(options,
         (err, res, body) => {
-          console.log("wikis_spec2 "+res);
-          console.log("wikis_spec3 "+body);
+//          console.log("wikis_spec2 "+res);
+//          console.log("wikis_spec3 "+body);
           Wiki.findOne({where: {title: "blink-182 songs"}})
           .then((wiki) => {
             expect(wiki.title).toBe("blink-182 songs");

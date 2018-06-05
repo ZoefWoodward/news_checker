@@ -1,5 +1,5 @@
 const wikiQueries = require('../db/queries.wikis.js');
-const Authorizer = require('../policies/wiki');
+const Authorizer = require('../policies/application');
 
 
 module.exports = {
@@ -34,11 +34,6 @@ module.exports = {
         userId: req.user.id
       };
       wikiQueries.addWiki(newWiki, (err, wiki) => {
-        console.log("wikiController1  " +req);
-        console.log("wikiController2  " +req.body.body);
-        console.log("wikiController3  " +req.body.private);
-        console.log("wikiController3  " +req.body.id);
-        console.log("wikiController4  " +err);
         if(err){
           res.redirect(500, "wikis/new");
         } else {

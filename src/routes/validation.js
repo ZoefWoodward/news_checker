@@ -8,7 +8,6 @@ module.exports = {
     }
     const errors = req.validationErrors();
     if (errors) {
-      console.log('validation2 '+errors);
       req.flash("error", errors);
       return res.redirect(req.headers.referer);
     } else {

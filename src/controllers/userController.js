@@ -21,7 +21,6 @@ module.exports = {
         res.redirect("/users/sign_up");
       } else {
         passport.authenticate("local")(req, res, () => {
-          console.log("userController - Auth Success");
           req.flash("notice", "You've successfully signed in!");
           res.redirect("/");
         })
@@ -36,13 +35,10 @@ module.exports = {
   signIn(req, res, next){
     passport.authenticate("local")(req, res, function () {
       if (!res) { return next(err); }
-      console.log("userController "+ res);
       if(!req.user){
-        console.log("userController1 "+ req.user);
         req.flash("notice", "Sign in failed. Please try again.");
         res.redirect("/users/sign_in");
       } else {
-        console.log("userController2 "+ req.user);
         req.flash("notice", "You've successfully signed in!");
         res.redirect("/");
       }
