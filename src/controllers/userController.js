@@ -1,5 +1,8 @@
 const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
+const keySecret = process.env.SECRET_KEY;
+const keyPublishable = process.env.PUBLISHABLE_KEY;
+const stripe = require("stripe")(keySecret);
 
 module.exports = {
 
@@ -62,9 +65,49 @@ module.exports = {
 //    })(req, res, next);;
 //  },
 
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+
   signOut(req, res, next){
     req.logout();
     req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
+  },
+
+  upgrade(req, res, next){
+    res.render("users/upgrade", {keyPublishable});
+    console.log("userController  "+keyPublishable);
+  },
+
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+  payment(req, res, next){
+    let amount = 1500;
+    console.log("userController payment1");
+    stripe.customers.create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then((customer) => {
+      console.log("userController payment2");
+      stripe.charges.create({
+        amount,
+        description: "Premium Membership",
+        currency: "usd",
+        customer: customer.id
+      })
+    })
+    .then((charge) => {
+      console.log("userController payment3");
+      userQueries.upgrade(req.user.dataValues.id);
+      res.render("users/success");
+    });
+  },
+
+  downgrade(req, res, next){
+    console.log("downgrade");
+    userQueries.downgrade(req.user.dataValues.id);
+    req.flash("notice", "You've successfully downgraded!");
     res.redirect("/");
   }
 

@@ -4,7 +4,7 @@ const faker = require("faker");
 
  let users = [
    {
-    id: 1,
+    id: -1,
     name: "John",
     email: "john@test.com",
     password: "123456",
@@ -13,7 +13,7 @@ const faker = require("faker");
     role: "member"
    },
    {
-    id: 2,
+    id: -2,
     name: "Paul",
     email: "paul@test.com",
     password: "abcdef",
@@ -22,7 +22,7 @@ const faker = require("faker");
     role: "premium"
    },
    {
-    id: 3,
+    id: -3,
     name: "George",
     email: "george@test.com",
     password: "654321",

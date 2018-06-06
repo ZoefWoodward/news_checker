@@ -8,7 +8,7 @@ for(let i = 1 ; i <= 15 ; i++){
   wikis.push({
     title: `${faker.hacker.noun()}-${i}`,
     body:  `${faker.hacker.phrase()}-${i}`,
-    userId: 1,
+    userId: -3,
     private: false,
     createdAt: new Date(),
     updatedAt: new Date()
