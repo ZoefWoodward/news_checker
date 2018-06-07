@@ -10,7 +10,7 @@ const faker = require("faker");
     password: "123456",
     createdAt: new Date(),
     updatedAt: new Date(),
-    role: "member"
+    role: "standard"
    },
    {
     id: -2,

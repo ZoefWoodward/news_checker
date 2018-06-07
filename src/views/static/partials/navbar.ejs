@@ -13,6 +13,13 @@
           <a class="nav-link" href="/wikis">Wikis</a>
         </li>
         <% if(currentUser) { %>
+
+          <% if(currentUser.role !== "standard") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/wikis/private">Private Wikis</a>
+            </li>
+          <% } %>
+
           <li class="nav-item">
             <a class="nav-link" href="/users/upgrade">Premium Membership</a>
           </li>

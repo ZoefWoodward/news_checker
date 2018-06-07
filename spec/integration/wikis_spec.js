@@ -6,6 +6,7 @@ const base = "http://localhost:3000/wikis/";
 const sequelize = require('../../src/db/models/index').sequelize;
 const Wiki = require("../../src/db/models").Wiki;
 const User = require("../../src/db/models").User;
+const passport = require("passport");
 
 describe("routes : wikis", () => {
 
@@ -28,7 +29,8 @@ describe("routes : wikis", () => {
           form: {
             role: user.role,
             userId: user.id,
-            email: user.email
+            email: user.email,
+            role: "admin"
           }
         });
         Wiki.create({
@@ -171,7 +173,5 @@ describe("routes : wikis", () => {
     });
   });//end context for admin user
 
-
-  // context of member user
 
 });

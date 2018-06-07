@@ -16,7 +16,7 @@
 
           <% wikis.forEach((wiki) => { %>
 
-            <% if(wiki.private === false) { %>
+            <% if(wiki.private === true && wiki.userId === currentUser.id) { %>
               <li class="list-group-item">
                 <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
               </li>
