@@ -60,6 +60,7 @@ module.exports = {
   show(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
+        console.log(collaborators);
         res.redirect(404, "/");
       } else {
         wiki.body = markdown.toHTML(wiki.body);
@@ -71,6 +72,7 @@ module.exports = {
   edit(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
+        console.log("wikiController  "+req)
         res.redirect(404, "/");
       } else {
         const authorized = new Authorizer(req.user, wiki).edit();
