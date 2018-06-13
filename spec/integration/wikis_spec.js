@@ -6,6 +6,7 @@ const base = "http://localhost:3000/wikis/";
 const sequelize = require('../../src/db/models/index').sequelize;
 const Wiki = require("../../src/db/models").Wiki;
 const User = require("../../src/db/models").User;
+const Collaborator = require("../../src/db/models").Collaborator;
 const passport = require("passport");
 
 describe("routes : wikis", () => {
@@ -87,8 +88,6 @@ describe("routes : wikis", () => {
       };
       request.post(options,
         (err, res, body) => {
-//          console.log("wikis_spec2 "+res);
-//          console.log("wikis_spec3 "+body);
           Wiki.findOne({where: {title: "blink-182 songs"}})
           .then((wiki) => {
             expect(wiki.title).toBe("blink-182 songs");

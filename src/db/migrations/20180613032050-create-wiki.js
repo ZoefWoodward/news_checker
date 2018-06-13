@@ -3,29 +3,23 @@
 module.exports = {
 
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Wikis', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        unique: true,
+      title: {
         type: Sequelize.STRING
       },
-      email: {
-        allowNull: false,
-        unique: true,
-        validate: {
-          isEmail: { msg: "must be a valid email" }
-        },
+      body: {
         type: Sequelize.STRING
       },
-      password: {
+      private: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        type: Sequelize.STRING
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -34,11 +28,21 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId'
+        }
       }
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Wikis');
   }
 };

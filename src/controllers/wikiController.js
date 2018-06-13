@@ -58,7 +58,8 @@ module.exports = {
   },
 
   show(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
       if(err || wiki == null){
         console.log(collaborators);
         res.redirect(404, "/");
@@ -72,7 +73,8 @@ module.exports = {
   edit(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
-        console.log("wikiController  "+req)
+        console.log("wikiController  "+req);
+        console.log("wikiController  "+req);
         res.redirect(404, "/");
       } else {
         const authorized = new Authorizer(req.user, wiki).edit();

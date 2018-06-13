@@ -6,13 +6,7 @@ const Collaborator = require("./models").Collaborator;
 module.exports = {
 
   getAllWikis(callback){
-    return Wiki.all({
-      include: [
-        {
-          model: Collaborator, as: "collaborators", include: [{model: User}]
-        }
-      ]
-    })
+    return Wiki.all()
     .then((wikis) => {
       callback(null, wikis);
     })
@@ -22,20 +16,25 @@ module.exports = {
   },
 
   getWiki(id, callback){
-    return Wiki.findById(id, {
-      include: [
-        {
-          model: Collaborator, as: "collaborators", include: [{model: User}]
-        }
-      ]
-    })
+    let result = {};
+    Wiki.findById(id)
     .then((wiki) => {
-      callback(null, wiki);
-    })
-    .catch((err) => {
-      callback(err);
-    })
-  },
+      if(!wiki) {
+        callback(404);
+      } else {
+        result["wiki"] = wiki;
+        Collaborator.scope({method: ["collabsFor", id]}).all()
+        .then((collabs) => {
+          result["collaborators"] = collabs;
+          callback(null, result);
+        })
+        .catch((err) => {
+          callback(err);
+        })
+      }
+    }
+  )},
+
 
 	addWiki(newWiki, callback){
     return Wiki.create({
@@ -53,13 +52,7 @@ module.exports = {
   },
 
   updateWiki(req, updatedWiki, callback){
-    return Wiki.findById(req.params.id, {
-      include: [
-        {
-          model: Collaborator, as: "collaborators", include: [{model: User}]
-        }
-      ]
-    })
+    return Wiki.findById(req.params.id)
     .then((wiki) => {
       if(!wiki){
         return callback("Wiki not found");

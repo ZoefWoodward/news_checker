@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: { msg: "must be a valid email" }
+        isEmail: { msg: 'must be a valid email' }
       }
     },
     password: {
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "standard"
+      defaultValue: 'standard'
     }
 
   }, {});
@@ -29,21 +29,21 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // associations can be defined here
     User.hasMany(models.Wiki, {
-      foreignKey: "userId",
-      as: "wikis"
+      foreignKey: 'userId',
+      as: 'wikis'
     });
     User.hasMany(models.Collaborator, {
-      foreignKey: "userId",
-      as: "collaborators"
+      foreignKey: 'userId',
+      as: 'collaborators'
     });
     User.prototype.isAdmin = function() {
-     return this.role === "admin";
+     return this.role === 'admin';
     };
     User.prototype.isPremium = function() {
-     return this.role === "premium";
+     return this.role === 'premium';
     };
     User.prototype.isStandard = function() {
-     return this.role === "standard";
+     return this.role === 'standard';
     };
   };
   return User;

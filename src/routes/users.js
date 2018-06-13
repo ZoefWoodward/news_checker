@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController")
 const validation = require("./validation");
 const User = require("../../src/db/models").User;
+const Collaborator = require('../../src/db/models').Collaborator;
 
 
 router.get("/users/sign_up", userController.signUp);

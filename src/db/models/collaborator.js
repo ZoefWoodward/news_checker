@@ -17,20 +17,20 @@ module.exports = (sequelize, DataTypes) => {
   Collaborator.associate = function(models) {
     // associations can be defined here
     Collaborator.belongsTo(models.Wiki, {
-      foreignKey: "wikiId",
-      onDelete: "CASCADE"
+      foreignKey: 'wikiId',
+      onDelete: 'CASCADE'
     });
     Collaborator.belongsTo(models.User, {
-      foreignKey: "userId",
-      onDelete: "CASCADE"
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
-    Collaborator.addScope("collabsFor", (wikiId) => {
+    Collaborator.addScope('collabsFor', (wikiId) => {
       return {
         include: [{
           model: models.User
         }],
         where: { wikiId: wikiId},
-        order: [["createdAt", "ASC"]]
+        order: [['createdAt', 'ASC']]
       }
     });
 

@@ -4,17 +4,17 @@ module.exports = {
 
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
-      "Users",
-      "role",
+      'Users',
+      'role',
       {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: "standard"
+        defaultValue: 'standard'
       }
     );
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn("Users", "role");
+    return queryInterface.removeColumn('Users', 'role');
   }
 };
