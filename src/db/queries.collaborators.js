@@ -9,6 +9,7 @@ module.exports = {
     if (req.user.username == req.body.collaborator){
       return callback("It's not possible to add yourself as a collaborator");
     }
+    console.log(collaborator);
     User.findAll({
       where: {
         username: req.body.collaborator
